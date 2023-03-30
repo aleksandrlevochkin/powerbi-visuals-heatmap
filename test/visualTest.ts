@@ -513,8 +513,7 @@ describe("TableHeatmap", () => {
 
                     const mappedCategoryX = TableHeatMap.mapPrimitiveValuesToStrings(categoryX);
 
-                    // decimal point is removed
-                    expect(mappedCategoryX).toEqual(["102", "332", "139231", "241", "679000004", "89321"]);
+                    expect(mappedCategoryX).toEqual(["1.02", "33.2", "139.231", "24.1", "6790.00004", "89321"]);
                 });
     
                 it("get X axis width when categoryX values are strings", () => {
@@ -551,6 +550,14 @@ describe("TableHeatmap", () => {
 
                     expect(mappedCategoryX).toEqual(["String", "false", "Random_String", date.toString(), "9000", "Test"]);
                 });
+
+                it("get X axis width when categoryX values areempty strings", () => {
+                    const categoryX = ["", " "];
+
+                    const mappedCategoryX = TableHeatMap.mapPrimitiveValuesToStrings(categoryX);
+
+                    expect(mappedCategoryX).toEqual(["", " "]);
+                });
             });
 
             describe("Get max text length", () => {
@@ -567,8 +574,7 @@ describe("TableHeatmap", () => {
 
                     const maxText = TableHeatMap.getMaxTextLengthForXAxis(categoryX);
 
-                    // decimal point is removed
-                    expect(maxText).toBe("679000004");
+                    expect(maxText).toBe("6790.00004");
                 });
     
                 it("get max text length for X axis labels when categoryX values are strings", () => {
@@ -606,6 +612,14 @@ describe("TableHeatmap", () => {
 
                     expect(maxText).toBe(date.toString());
                     expect(maxText.length).toBe(date.toString().length);
+                });
+
+                it("get X axis width when categoryX values are empty strings", () => {
+                    const categoryX = ["", " "];
+
+                    const maxText = TableHeatMap.getMaxTextLengthForXAxis(categoryX);
+
+                    expect(maxText).toBe(" ");
                 });
             });
         });

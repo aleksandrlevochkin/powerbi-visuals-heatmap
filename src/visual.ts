@@ -322,14 +322,11 @@ export class TableHeatMap implements IVisual {
 
     public static mapPrimitiveValuesToStrings(category: powerbi.PrimitiveValue[]): string[] {
         const mappedCategory = category.map(value => {
-            if (typeof(value) === "number") {
-                return String(value).replace(".", "");
+            if (typeof(value) === "number" || typeof(value) === "boolean" || value instanceof Date) {
+                return value.toString();
             }
             else if (typeof(value) === "string") {
                 return value;
-            }
-            else if (typeof(value) === "boolean" || value instanceof Date){
-                return value.toString();
             }
             else {
                 return "";
